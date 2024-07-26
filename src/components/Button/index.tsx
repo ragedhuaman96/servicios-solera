@@ -1,25 +1,38 @@
-import { FC } from "react";
+import React, { FC } from 'react';
+import styled, { css } from 'styled-components';
 
 type ButtonProps = {
     onClick: any,
-    variant?: string;
+    variant?: 'success' | 'error' | 'text',
     children: React.ReactNode
 }
 
-const Button: FC<ButtonProps> = ({ onClick, children, variant= "text" }) => {
-const variants:any= {
-    success: 'border border-green-500 text-green-500',
-    error: 'border border-red-500 text-red-500',
-    text: 'text-blue-600'
-}
-  return (
-    <button
-      onClick={onClick}
-      className={'p-3 rounded-md '+variants[variant]}
-    >
-      {children}
-    </button>
-  );
+const variantStyles:any = {
+    success: css`
+        border: 1px solid #4ac338;
+        color: #4ac338;
+    `,
+    error: css`
+        border: 1px solid red;
+        color: red;
+    `,
+    text: css`
+        color: #2e70b5;
+    `
+};
+
+const StyledButton = styled.button<{ variant: 'success' | 'error' | 'text' }>`
+  padding: 1rem;
+  border-radius: 0.375rem;
+  ${(props: { variant: string | number; }) => variantStyles[props.variant]}
+`;
+
+const Button: FC<ButtonProps> = ({ onClick, children, variant = 'text' }) => {
+    return (
+        <StyledButton onClick={onClick} variant={variant}>
+            {children}
+        </StyledButton>
+    );
 };
 
 export default Button;

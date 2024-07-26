@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import NavBar from "@/components/Navbar";
+import "react-toastify/dist/ReactToastify.css";
 import ServicesProvider from "@/context-api/context";
+import { ToastContainer } from "react-toastify";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,12 +19,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <ServicesProvider>
-        <body className={inter.className}>
-          <NavBar />
-          {children}
-        </body>
-      </ServicesProvider>
+      <body className={inter.className}>
+        <ServicesProvider>
+            {children}
+        </ServicesProvider>
+        <ToastContainer theme="colored"/>
+      </body>
     </html>
   );
 }
